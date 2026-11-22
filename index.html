@@ -1,1 +1,576 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Du Lịch Nước Đức</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
 
+        /* Đầu trang & Menu */
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #991b1b 60%, #d97706 100%);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        header h1 {
+            margin: 0 0 15px 0;
+            font-size: 32px;
+            letter-spacing: 1.5px;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            transition: background 0.25s;
+            font-size: 14px;
+        }
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* Khung nội dung chính */
+        main {
+            max-width: 1120px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+        h2 {
+            color: #1e293b;
+            border-left: 5px solid #dc2626;
+            padding-left: 12px;
+            margin-top: 0;
+            font-size: 24px;
+        }
+
+        /* Thư viện hình ảnh */
+        .gallery {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .gallery img {
+            flex: 1;
+            min-width: 180px;
+            height: 165px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.04);
+        }
+
+        /* Video */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .video-item p {
+            font-weight: 600;
+            margin-top: 0;
+            color: #334155;
+        }
+        .video-item video {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Lưới thẻ Card (Phong cảnh, Tham quan, Ẩm thực) */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            margin-top: 20px;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #eef2f6;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .card-content {
+            padding: 18px;
+        }
+        .card-content h3 {
+            margin: 0 0 8px 0;
+            color: #b91c1c;
+            font-size: 18px;
+        }
+        .card-content p {
+            margin: 0;
+            font-size: 14.5px;
+            color: #555;
+        }
+
+        /* Khung Tour xếp ngang */
+        .tour-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #fcfcfd;
+        }
+        .tour-box h3 {
+            margin-top: 0;
+            color: #0f172a;
+            border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 10px;
+        }
+        .tour-row {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .tour-img {
+            flex: 6;
+        }
+        .tour-img img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        .tour-info {
+            flex: 4;
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .tour-info h4 {
+            margin-top: 0;
+            color: #1e293b;
+        }
+        .tour-info ul {
+            padding-left: 18px;
+            margin-bottom: 15px;
+        }
+        .tour-info li {
+            margin-bottom: 6px;
+            font-size: 14.5px;
+        }
+        .price {
+            color: #dc2626;
+            font-weight: bold;
+            font-size: 19px;
+        }
+
+        /* Form đặt vé */
+        form {
+            max-width: 550px;
+            margin: 0 auto;
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        label {
+            font-weight: 600;
+            color: #334155;
+            display: block;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+        }
+        button {
+            width: 100%;
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+        button:hover {
+            background-color: #b91c1c;
+        }
+
+        /* Chân trang */
+        footer {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 40px;
+        }
+        footer h2 {
+            color: white;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Trang chủ & Menu -->
+    <header>
+        <h1>KHÁM PHÁ DU LỊCH NƯỚC ĐỨC</h1>
+        <nav>
+            <a href="#gioithieu">Giới thiệu</a>
+            <a href="#hinhanh">Hình ảnh</a>
+            <a href="#video">Video</a>
+            <a href="#phongcanh">Phong cảnh</a>
+            <a href="#thamquan">Tham quan</a>
+            <a href="#amthuc">Ẩm thực</a>
+            <a href="#dichvu">Dịch vụ</a>
+            <a href="#datve">Đặt vé</a>
+            <a href="#lienhe">Liên hệ</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 2. Giới thiệu -->
+        <section id="gioithieu">
+            <h2>1. Giới thiệu chung</h2>
+            <p>Nước Đức (Cộng hòa Liên bang Đức) nằm ở khu vực Trung Âu, là một trong những quốc gia có nền kinh tế lớn và phát triển hàng đầu châu Âu. Nơi đây không chỉ nổi tiếng với các lâu đài cổ kính mang đậm dấu ấn kiến trúc trung cổ, thiên nhiên tươi đẹp với những thung lũng sông thơ mộng và Rừng Đen huyền bí, mà còn là trung tâm văn hóa, nghệ thuật và lịch sử lâu đời của thế giới.</p>
+            <p>Đến với nước Đức, du khách sẽ có cơ hội khám phá sự hòa quyện hoàn hảo giữa nét cổ kính truyền thống và sự hiện đại, năng động của các thành phố lớn như thủ đô Berlin, Frankfurt hay Munich.</p>
+        </section>
+
+        <!-- 3. Hình ảnh -->
+        <section id="hinhanh">
+            <h2>2. Thư viện hình ảnh</h2>
+            <div class="gallery">
+                <img src="hinh anh/neuschwanstein.jpg" alt="Lâu đài Neuschwanstein">
+                <img src="hinh anh/brandenburg.jpg" alt="Cổng Brandenburg">
+                <img src="hinh anh/cologne.jpg" alt="Nhà thờ lớn Cologne">
+                <img src="hinh anh/song-rhine.jpg" alt="Du thuyền thơ mộng trên sông Rhine">
+                <img src="hinh anh/dao-bao-tang.jpg" alt="Đảo Bảo Tàng (Berlin)">
+            </div>
+        </section>
+
+        <!-- 4. Video -->
+        <section id="video">
+            <h2>3. Video trải nghiệm</h2>
+            <div class="video-grid">
+                <div class="video-item">
+                    <p>Video 1 - điểm đến nổi bật tại Đức:</p>
+                    <video controls>
+                        <source src="video/video1.mp4" type="video/mp4">
+                        Trình duyệt không hỗ trợ phát video.
+                    </video>
+                </div>
+
+                <div class="video-item">
+                    <p>Video 2 - Vẻ đẹp thiên nhiên nước Đức:</p>
+                    <video controls>
+                        <source src="video/video2.mp4" type="video/mp4">
+                        Trình duyệt không hỗ trợ phát video.
+                    </video>
+                </div>
+
+                <div class="video-item">
+                    <p>Video 3 - Thị trấn cổ Boppard:</p>
+                    <video controls>
+                        <source src="video/video3.mp4" type="video/mp4">
+                        Trình duyệt không hỗ trợ phát video.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Phong cảnh -->
+        <section id="phongcanh">
+            <h2>4. Phong cảnh thiên nhiên nước Đức</h2>
+            <p>Thiên nhiên nước Đức mang vẻ đẹp đa dạng từ những cánh rừng rậm rạp, thung lũng sông êm đềm cho đến dãy núi Alps hùng vĩ:</p>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="hinh anh/rung-den.jpg" alt="Rừng Đen (Black Forest)">
+                    <div class="card-content">
+                        <h3>Rừng Đen (Black Forest)</h3>
+                        <p>Vùng núi rừng bạt ngàn ở phía Tây Nam với những ngôi làng cổ kính và hồ nước trong xanh.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/song-rhine.jpg" alt="Thung lũng sông Rhine">
+                    <div class="card-content">
+                        <h3>Thung lũng sông Rhine</h3>
+                        <p>Nổi bật với những sườn đồi trồng nho bậc thang cùng các tòa lâu đài cổ soi bóng xuống dòng sông.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/konigssee.jpg" alt="Dãy núi Alps vùng Bavaria và Hồ Königssee">
+                    <div class="card-content">
+                        <h3>Dãy núi Alps &amp; Hồ Königssee</h3>
+                        <p>Những đỉnh núi tuyết phủ hùng vĩ vùng Bavaria ôm trọn mặt hồ xanh ngọc bích như tranh vẽ.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Điểm tham quan -->
+        <section id="thamquan">
+            <h2>5. Điểm tham quan nổi bật</h2>
+            <p>Từ những tòa lâu đài mang dáng dấp cổ tích giữa núi rừng cho tới các công trình lịch sử biểu tượng ở thủ đô và ven sông, mỗi điểm dừng chân ở Đức đều lưu giữ dấu ấn kiến trúc và câu chuyện văn hóa riêng biệt.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="hinh anh/neuschwanstein.jpg" alt="Lâu đài Neuschwanstein">
+                    <div class="card-content">
+                        <h3>Lâu đài Neuschwanstein (Bavaria)</h3>
+                        <p>Biểu tượng cổ tích ngoài đời thực nằm trên dãy núi Alps, nổi bật với những ngọn tháp trắng vươn cao giữa rừng thông và khung cảnh thung lũng đầy thơ mộng.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/brandenburg.jpg" alt="Cổng Brandenburg tại Berlin">
+                    <div class="card-content">
+                        <h3>Cổng Brandenburg (Berlin)</h3>
+                        <p>Chứng nhân lịch sử và biểu tượng của sự thống nhất nước Đức, mang vẻ uy nghi cổ điển giữa nhịp sống sôi động của thủ đô Berlin.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/cologne.jpg" alt="Nhà thờ lớn Cologne">
+                    <div class="card-content">
+                        <h3>Nhà thờ lớn Cologne</h3>
+                        <p>Kiệt tác kiến trúc Gothic khổng lồ bên bờ sông Rhine với hai ngọn tháp cao sừng sững và những chi tiết chạm khắc tinh xảo qua nhiều thế kỷ.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/dao-bao-tang.jpg" alt="Đảo Bảo Tàng ở Berlin">
+                    <div class="card-content">
+                        <h3>Đảo Bảo Tàng (Berlin)</h3>
+                        <p>Quần thể bảo tàng danh tiếng nằm trên sông Spree, nơi hội tụ các bộ sưu tập nghệ thuật và khảo cổ học đặc sắc bậc nhất nước Đức.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Ẩm thực -->
+        <section id="amthuc">
+            <h2>6. Ẩm thực đặc trưng</h2>
+            <p>Ẩm thực Đức hấp dẫn bởi sự đậm đà, ấm áp và gắn liền với nét văn hóa sum vầy, lễ hội địa phương — từ những món ăn đường phố tiện lợi đến các mâm tiệc truyền thống vùng Bavaria.</p>
+            <div class="card-grid">
+                <div class="card">
+                    <img src="hinh anh/bratwurst.jpg" alt="Xúc xích Bratwurst ăn kèm dưa cải muối chua">
+                    <div class="card-content">
+                        <h3>Xúc xích Đức (Bratwurst)</h3>
+                        <p>Nổi tiếng với hàng trăm loại hương vị khác nhau, thường ăn kèm bánh mì giòn, mù tạt hoặc dưa cải muối chua — món ăn quen thuộc từ chợ truyền thống đến các quán ven đường.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/schweinshaxe.jpg" alt="Giò heo muối chiên giòn Schweinshaxe">
+                    <div class="card-content">
+                        <h3>Giò heo muối chiên giòn</h3>
+                        <p>Món ăn truyền thống đậm đà của vùng Bavaria với lớp da giòn rụm bên ngoài và phần thịt mềm ngọt bên trong, thường xuất hiện trong các dịp tụ họp hay lễ hội.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="hinh anh/pretzel.jpg" alt="Bánh vòng Pretzel truyền thống">
+                    <div class="card-content">
+                        <h3>Bánh vòng Pretzel</h3>
+                        <p>Loại bánh mì nướng có hình nút thắt đặc trưng, vỏ giòn rụm rắc muối hạt, ruột mềm dẻo — vừa là món ăn vặt trứ danh vừa là thức ăn kèm lý tưởng.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Dịch vụ & Bảng giá -->
+        <section id="dichvu">
+            <h2>7. Dịch vụ &amp; Bảng giá Tour</h2>
+
+            <!-- TOUR 1 -->
+            <div class="tour-box">
+                <h3>TOUR 1: HÀNH TRÌNH DI SẢN (8 NGÀY 7 ĐÊM)</h3>
+                <div class="tour-row">
+                    <div class="tour-img">
+                        <img src="hinh anh/tour1.jpg" alt="Tour 1 - Hành trình di sản">
+                    </div>
+                    <div class="tour-info">
+                        <h4>Điểm Nhấn Lộ Trình</h4>
+                        <ul>
+                            <li><strong>Ngày 1 - 3:</strong> Thủ đô Berlin, Cổng Brandenburg &amp; Đảo Bảo Tàng</li>
+                            <li><strong>Ngày 4 - 5:</strong> Tàu cao tốc ICE đi Frankfurt &amp; Phố cổ Heidelberg</li>
+                            <li><strong>Ngày 6 - 7:</strong> Quảng trường Munich &amp; Cung điện Nymphenburg</li>
+                            <li><strong>Ngày 8:</strong> Tự do mua sắm &amp; bay về Việt Nam</li>
+                        </ul>
+                        <p><strong>Giá vé:</strong> <span class="price">60.000.000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOUR 2 -->
+            <div class="tour-box">
+                <h3>TOUR 2: CUNG ĐƯỜNG LÃNG MẠN (8 NGÀY 7 ĐÊM)</h3>
+                <div class="tour-row">
+                    <div class="tour-img">
+                        <img src="hinh anh/tour2.jpg" alt="Tour 2 - Cung đường lãng mạn">
+                    </div>
+                    <div class="tour-info">
+                        <h4>Điểm Nhấn Lộ Trình</h4>
+                        <ul>
+                            <li><strong>Ngày 1 - 2:</strong> Khởi hành từ Frankfurt &amp; thành phố cổ Würzburg</li>
+                            <li><strong>Ngày 3 - 4:</strong> Thị trấn cổ tích Rothenburg ob der Tauber</li>
+                            <li><strong>Ngày 5 - 6:</strong> Khám phá Lâu đài cổ tích Neuschwanstein</li>
+                            <li><strong>Ngày 7 - 8:</strong> Dạo quanh Munich &amp; bay về Việt Nam</li>
+                        </ul>
+                        <p><strong>Giá vé:</strong> <span class="price">58.000.000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOUR 3 -->
+            <div class="tour-box">
+                <h3>TOUR 3: SẮC THU &amp; LỄ HỘI OKTOBERFEST (7 NGÀY 6 ĐÊM)</h3>
+                <div class="tour-row">
+                    <div class="tour-img">
+                        <img src="hinh anh/tour3.jpg" alt="Tour 3 - Sắc thu và lễ hội Oktoberfest">
+                    </div>
+                    <div class="tour-info">
+                        <h4>Điểm Nhấn Lộ Trình</h4>
+                        <ul>
+                            <li><strong>Ngày 1 - 2:</strong> Đến Munich &amp; hòa mình vào lễ hội bia Oktoberfest</li>
+                            <li><strong>Ngày 3 - 4:</strong> Ngắm lá vàng mùa thu tại Rừng Đen (Black Forest)</li>
+                            <li><strong>Ngày 5 - 6:</strong> Du thuyền thung lũng sông Rhine &amp; thưởng thức ẩm thực</li>
+                            <li><strong>Ngày 7:</strong> Mua sắm quà lưu niệm &amp; bay về Việt Nam</li>
+                        </ul>
+                        <p><strong>Giá vé:</strong> <span class="price">55.000.000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOUR 4 -->
+            <div class="tour-box">
+                <h3>TOUR 4: GIÁNG SINH XỨ SỞ THẦN TIÊN (7 NGÀY 6 ĐÊM)</h3>
+                <div class="tour-row">
+                    <div class="tour-img">
+                        <img src="hinh anh/tour4.jpg" alt="Tour 4 - Giáng sinh xứ sở thần tiên">
+                    </div>
+                    <div class="tour-info">
+                        <h4>Điểm Nhấn Lộ Trình</h4>
+                        <ul>
+                            <li><strong>Ngày 1 - 2:</strong> Khám phá chợ Giáng sinh truyền thống lâu đời ở Nuremberg</li>
+                            <li><strong>Ngày 3 - 4:</strong> Không khí lễ hội tại Dresden &amp; thủ đô Berlin</li>
+                            <li><strong>Ngày 5 - 6:</strong> Ngắm tuyết rơi trên dãy Alps &amp; Hồ Königssee</li>
+                            <li><strong>Ngày 7:</strong> Tự do dạo phố &amp; bay về Việt Nam</li>
+                        </ul>
+                        <p><strong>Giá vé:</strong> <span class="price">80.000.000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOUR 5 -->
+            <div class="tour-box">
+                <h3>TOUR 5: KHÁM PHÁ MIỀN BẮC &amp; CẢNG BIỂN (7 NGÀY 6 ĐÊM)</h3>
+                <div class="tour-row">
+                    <div class="tour-img">
+                        <img src="hinh anh/tour5.jpg" alt="Tour 5 - Khám phá miền Bắc và cảng biển">
+                    </div>
+                    <div class="tour-info">
+                        <h4>Điểm Nhấn Lộ Trình</h4>
+                        <ul>
+                            <li><strong>Ngày 1 - 3:</strong> Thành phố cảng Hamburg &amp; khu phố kho cổ Speicherstadt</li>
+                            <li><strong>Ngày 4 - 5:</strong> Thành phố cổ Bremen &amp; cảng biển Lübeck</li>
+                            <li><strong>Ngày 6:</strong> Tham quan Nhà thờ lớn Cologne bên bờ sông Rhine</li>
+                            <li><strong>Ngày 7:</strong> Nghỉ ngơi &amp; đáp chuyến bay về Việt Nam</li>
+                        </ul>
+                        <p><strong>Giá vé:</strong> <span class="price">67.000.000 VNĐ</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Đặt vé -->
+        <section id="datve">
+            <h2>8. Đăng ký đặt tour</h2>
+            <form id="formDatTour">
+                <label>Họ và tên:</label>
+                <input type="text" placeholder="Nhập họ tên của bạn" required>
+
+                <label>Email:</label>
+                <input type="email" placeholder="Nhập địa chỉ email" required>
+
+                <label>Số điện thoại:</label>
+                <input type="tel" placeholder="Nhập số điện thoại" required>
+
+                <label>Chọn gói tour:</label>
+                <select>
+                    <option>TOUR 1: HÀNH TRÌNH DI SẢN (8 NGÀY 7 ĐÊM)</option>
+                    <option>TOUR 2: CUNG ĐƯỜNG LÃNG MẠN (8 NGÀY 7 ĐÊM)</option>
+                    <option>TOUR 3: SẮC THU &amp; LỄ HỘI OKTOBERFEST (7 NGÀY 6 ĐÊM)</option>
+                    <option>TOUR 4: GIÁNG SINH XỨ SỞ THẦN TIÊN (7 NGÀY 6 ĐÊM)</option>
+                    <option>TOUR 5: KHÁM PHÁ MIỀN BẮC &amp; CẢNG BIỂN (7 NGÀY 6 ĐÊM)</option>
+                </select>
+
+                <button type="submit">Gửi yêu cầu đặt vé</button>
+
+                <p id="thongBao" style="display: none; color: #16a34a; font-weight: bold; text-align: center; margin-top: 15px; background: #dcfce7; padding: 10px; border-radius: 8px;">
+                    ✅ Đã gửi yêu cầu! Chúng tôi sẽ liên hệ với bạn sớm nhất.
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <!-- 10. Liên hệ -->
+    <footer id="lienhe">
+        <h2>9. Thông tin liên hệ</h2>
+        <p>Trung tâm Hỗ trợ Du lịch Đức tại Việt Nam</p>
+        <p>Email: dulichduc@example.com | Hotline: 1900 1234</p>
+    </footer>
+
+    <script>
+        document.getElementById("formDatTour").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Đã gửi yêu cầu!");
+            document.getElementById("thongBao").style.display = "block";
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>
